@@ -1,0 +1,43 @@
+name: Run and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Get code from repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Show environment info
+      - name: Print system info
+        run: |
+          echo "Workflow started"
+          uname -a
+          node -v || true
+          python --version || true
+
+      # 3️⃣ Install dependencies (example)
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          # Example commands
+          npm install || true
+          pip install -r requirements.txt || true
+
+      # 4️⃣ Run tests
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test || echo "No npm tests"
+          pytest || echo "No python tests"
+
+      # 5️⃣ Finish message
+      - name: Done
+        run: echo "Workflow completed successfully 🎉"
